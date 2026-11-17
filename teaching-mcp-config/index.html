@@ -12,7 +12,7 @@
 .connector h2{margin:0;font-size:16px}
 .config-details{margin-top:12px}
 .config-details summary{width:fit-content;cursor:pointer;color:#275a9f;font-size:13px}
-.config-details .actions{justify-content:flex-end;margin:8px 0}
+.config-details .editor{margin-top:8px}
 @media(max-width:480px){.connector{padding:10px}}
 
 .tool-table{width:100%;border:1px solid #dbe4ef;border-radius:10px;border-spacing:0;overflow:hidden}
@@ -51,7 +51,10 @@
       <section class="connector">
         <header class="panel-head">
           <h2></h2>
-          <button type="button" class="primary copy">复制配置</button>
+          <div class="actions">
+            <button type="button" class="refresh">刷新</button>
+            <button type="button" class="primary copy">复制配置</button>
+          </div>
         </header>
         <table class="tool-table" aria-label="查询工具">
           <thead><tr><th scope="col">查询工具</th><th scope="col">能查什么</th></tr></thead>
@@ -59,7 +62,6 @@
         </table>
         <details class="config-details">
           <summary>查看配置</summary>
-          <div class="actions"><button type="button" class="refresh">刷新</button></div>
           <div class="editor" aria-label="配置预览"></div>
         </details>
       </section>

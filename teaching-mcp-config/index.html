@@ -45,7 +45,10 @@
         <h1 id="title">MCP 配置</h1>
         <p>查看当前 MCP 服务配置，复制后可添加到 WorkBuddy 的 MCP 配置文件。</p>
       </div>
-      <button type="button" class="primary" id="copy-all">复制全部配置</button>
+      <div class="actions">
+        <button type="button" id="refresh">刷新</button>
+        <button type="button" class="primary" id="copy-all">复制全部配置</button>
+      </div>
     </header>
     <div class="tabs" role="tablist" aria-label="MCP 分类">
       <button class="tab" id="wechat-tab" role="tab" aria-controls="config-panel" aria-selected="true" data-key="wechat">企微会话</button>
@@ -57,10 +60,7 @@
       <section class="connector">
         <header class="panel-head">
           <h2></h2>
-          <div class="actions">
-            <button type="button" class="refresh">刷新</button>
-            <button type="button" class="primary copy">复制配置</button>
-          </div>
+          <button type="button" class="primary copy">复制配置</button>
         </header>
         <table class="tool-table" aria-label="查询工具">
           <thead><tr><th scope="col">查询工具</th><th scope="col">能查什么</th></tr></thead>
@@ -221,16 +221,17 @@ function renderConnector(connector) {
   renderConfig(editor, json);
   renderTools(card.querySelector('tbody'), connector.tools);
 
-  card.querySelector('.refresh').addEventListener('click', () => {
-    renderConfig(editor, json);
-    announce(`已刷新${connector.label}演示配置`);
-  });
-
   card.querySelector('.copy').addEventListener('click', () => {
     copyConfig(json, `已复制${connector.label}配置`);
   });
   return card;
 }
+
+document.getElementById('refresh').addEventListener('click', () => {
+  const tab = document.querySelector('.tab[aria-selected="true"]');
+  selectTab(tab);
+  announce('已刷新 MCP 配置');
+});
 
 document.getElementById('copy-all').addEventListener('click', () => {
   const services = Object.values(connectors).flat();

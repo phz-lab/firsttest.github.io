@@ -6,6 +6,7 @@
 <title>VisionAI · MCP 配置 Demo</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#1b2435;font:14px/1.45 Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}.layout{display:grid;grid-template-columns:239px minmax(0,1fr);min-height:100vh}aside{background:#e9e9ec;border-right:1px solid #dce0e7;padding:10px 12px}.brand{display:flex;align-items:center;gap:12px;font-size:25px;font-weight:750;letter-spacing:-.5px}.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#121723 32%,#355676 78%,#94efec);color:#effcff;font-size:25px;box-shadow:0 5px 12px #26395430}.nav{margin:31px 0;color:#4e5c70}.nav div{padding:11px 12px;margin:3px 0}.nav span{display:inline-block;width:28px}.nav .child{margin-left:36px;padding:10px;color:#6b7a91}.nav .current{background:#f4f4f6;border:1px solid #fff;border-radius:9px;color:#202b3e;font-weight:600}.nav i{float:right;font-style:normal}main{min-width:0}.top{display:flex;align-items:center;justify-content:space-between;height:61px;padding:0 24px;color:#6b7a91}.top b{color:#182133;margin-left:10px}.account{display:flex;align-items:center;gap:8px}.avatar{display:grid;place-items:center;background:#2a5da7;color:white;width:30px;height:30px;border-radius:50%;font-size:12px}.card{margin:0 10px 20px 20px;padding:20px;border:1px solid #e4eaf2;border-radius:17px;background:#fff;box-shadow:0 7px 22px #26395407}h1{font-size:18px;margin:0 0 4px}p{margin:0;color:#657995}.tabs{display:flex;gap:24px;border-bottom:1px solid #e6ebf2;margin-top:13px}.tab{border:0;border-bottom:2px solid transparent;border-radius:0;background:white;color:#56677e;padding:11px 3px 9px;min-width:60px;font-size:14px}.tab[aria-selected="true"]{border-color:#2b5fa8;color:#275a9f;font-weight:650}.panel-head{display:flex;justify-content:flex-end;align-items:center;margin:12px 0}.actions{display:flex;gap:10px;flex-shrink:0}button{cursor:pointer;font:inherit;border:1px solid #ced7e4;border-radius:8px;background:#fff;color:#445674;padding:6px 13px;font-size:13px}button:hover{background:#f4f7fc}button:focus-visible{outline:2px solid #356ec3;outline-offset:2px}.primary{background:#2b5fa8;color:white;border-color:#2b5fa8}.primary:hover{background:#234e8a}.editor{overflow:auto;min-height:220px;background:#f7f9fa;border:1px solid #dbe4ef;border-radius:12px;padding:14px 17px;font:14px/20px ui-monospace,SFMono-Regular,Consolas,monospace}.line{display:flex;white-space:pre;min-width:max-content}.number{color:#64748b;text-align:right;width:23px;margin-right:10px;user-select:none}.value{color:#16834b}.numeric{color:#1761b8}.fold{font:inherit;border:0;padding:0 2px;background:transparent;color:#25334a}.hint{color:#70839e}.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#25354d;color:white;border-radius:8px;padding:9px 16px;box-shadow:0 4px 12px #101a2a28;max-width:90vw}.toast:empty{display:none}dialog{width:min(95vw,680px);border:1px solid #dbe4ef;border-radius:12px;padding:20px}dialog textarea{width:100%;height:180px;margin:12px 0;font:13px monospace}dialog::backdrop{background:#17213355}@media(max-width:720px){.layout{grid-template-columns:minmax(0,1fr)}aside{display:none}.top{padding:0 14px}.card{margin:0 8px 14px;padding:13px}.editor{padding:12px 8px}}
+.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 #config-panel{display:grid;gap:14px;margin-top:16px}
 .connector{min-width:0;border:1px solid #dbe4ef;border-radius:12px;padding:16px}
 .connector .panel-head{justify-content:space-between;gap:12px;margin:0 0 12px}
@@ -39,8 +40,13 @@
 <main>
   <header class="top"><div>AI 配置 <span aria-hidden="true">›</span><b>MCP配置</b></div><div class="account"><span class="avatar" aria-hidden="true">演</span>演示账号</div></header>
   <section class="card" aria-labelledby="title">
-    <h1 id="title">MCP 配置</h1>
-    <p>查看当前 MCP 服务配置，复制后可添加到 WorkBuddy 的 MCP 配置文件。</p>
+    <header class="page-head">
+      <div>
+        <h1 id="title">MCP 配置</h1>
+        <p>查看当前 MCP 服务配置，复制后可添加到 WorkBuddy 的 MCP 配置文件。</p>
+      </div>
+      <button type="button" class="primary" id="copy-all">复制全部配置</button>
+    </header>
     <div class="tabs" role="tablist" aria-label="MCP 分类">
       <button class="tab" id="wechat-tab" role="tab" aria-controls="config-panel" aria-selected="true" data-key="wechat">企微会话</button>
       <button class="tab" id="teaching-tab" role="tab" aria-controls="config-panel" aria-selected="false" tabindex="-1" data-key="teaching">教学</button>
@@ -101,12 +107,25 @@ const copyDialog = document.getElementById('copy-dialog');
 const copyText = document.getElementById('copy-text');
 let toastTimer;
 
-function configJson({ name, url }) {
-  return JSON.stringify({ mcpServers: { [name]: {
+function configJson(services) {
+  const entries = services.map(({ name, url }) => [name, {
     url,
     headers: { Authorization: 'Bearer DEMO_TOKEN' },
     timeout: 60000,
-  } } }, null, 2);
+  }]);
+  return JSON.stringify({ mcpServers: Object.fromEntries(entries) }, null, 2);
+}
+
+async function copyConfig(json, message) {
+  try {
+    await navigator.clipboard.writeText(json);
+    announce(message);
+  } catch {
+    copyText.value = json;
+    if (!copyDialog.open) copyDialog.showModal();
+    copyText.focus();
+    copyText.select();
+  }
 }
 
 function renderConfig(editor, json, headersExpanded = false, focusToggle = false) {
@@ -198,7 +217,7 @@ function renderConnector(connector) {
   card.setAttribute('aria-labelledby', title.id);
 
   const editor = card.querySelector('.editor');
-  const json = configJson(connector);
+  const json = configJson([connector]);
   renderConfig(editor, json);
   renderTools(card.querySelector('tbody'), connector.tools);
 
@@ -207,19 +226,16 @@ function renderConnector(connector) {
     announce(`已刷新${connector.label}演示配置`);
   });
 
-  card.querySelector('.copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(json);
-      announce(`已复制${connector.label}配置`);
-    } catch {
-      copyText.value = json;
-      if (!copyDialog.open) copyDialog.showModal();
-      copyText.focus();
-      copyText.select();
-    }
+  card.querySelector('.copy').addEventListener('click', () => {
+    copyConfig(json, `已复制${connector.label}配置`);
   });
   return card;
 }
+
+document.getElementById('copy-all').addEventListener('click', () => {
+  const services = Object.values(connectors).flat();
+  copyConfig(configJson(services), `已复制 ${services.length} 个 MCP 的配置`);
+});
 
 selectTab(tabs[0]);
 </script>

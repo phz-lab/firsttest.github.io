@@ -11,7 +11,7 @@
 .connector{min-width:0;border:1px solid #dbe4ef;border-radius:12px;padding:16px}
 .connector .panel-head{justify-content:space-between;gap:12px;margin:0 0 12px}
 .connector h2{margin:0;font-size:16px}
-.config-details{margin-top:12px}
+.config-details{margin-bottom:12px}
 .config-details summary{width:fit-content;cursor:pointer;color:#275a9f;font-size:13px}
 .config-details .editor{margin-top:8px}
 @media(max-width:480px){.connector{padding:10px}}
@@ -62,20 +62,30 @@
           <h2></h2>
           <button type="button" class="primary copy">复制配置</button>
         </header>
+        <details open class="config-details">
+          <summary>查看配置</summary>
+          <div class="editor" aria-label="配置预览"></div>
+        </details>
         <table class="tool-table" aria-label="查询工具">
           <thead><tr><th scope="col">查询工具</th><th scope="col">能查什么</th></tr></thead>
           <tbody></tbody>
         </table>
-        <details class="config-details">
-          <summary>查看配置</summary>
-          <div class="editor" aria-label="配置预览"></div>
-        </details>
       </section>
     </template>
   </section>
 </main>
 </div>
 <div id="toast" class="toast" role="status"></div>
+<dialog id="all-config-dialog" aria-labelledby="all-config-title">
+  <form method="dialog">
+    <strong id="all-config-title">全部配置</strong>
+    <textarea id="all-config-text" aria-label="全部配置 JSON" readonly></textarea>
+    <div class="actions">
+      <button>关闭</button>
+      <button type="button" class="primary" id="copy-all-confirm">复制全部配置</button>
+    </div>
+  </form>
+</dialog>
 <dialog id="copy-dialog" aria-labelledby="copy-title"><form method="dialog"><strong id="copy-title">手动复制配置</strong><textarea id="copy-text" aria-label="配置 JSON" readonly></textarea><button>关闭</button></form></dialog>
 <script>
 const connectors = {
@@ -233,9 +243,23 @@ document.getElementById('refresh').addEventListener('click', () => {
   announce('已刷新 MCP 配置');
 });
 
+const allConfigDialog = document.getElementById('all-config-dialog');
+const allConfigText = document.getElementById('all-config-text');
+
 document.getElementById('copy-all').addEventListener('click', () => {
-  const services = Object.values(connectors).flat();
-  copyConfig(configJson(services), `已复制 ${services.length} 个 MCP 的配置`);
+  allConfigText.value = configJson(Object.values(connectors).flat());
+  allConfigDialog.showModal();
+});
+
+document.getElementById('copy-all-confirm').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(allConfigText.value);
+    allConfigDialog.close();
+    announce('已复制全部 MCP 配置');
+  } catch {
+    allConfigText.focus();
+    allConfigText.select();
+  }
 });
 
 selectTab(tabs[0]);

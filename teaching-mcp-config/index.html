@@ -11,7 +11,7 @@
 .connector-card{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;min-height:82px;text-align:left;padding:14px;border:1px solid #dbe4ef;border-radius:12px}
 .connector-card:hover{border-color:#92acd0}
 .connector-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:11px;background:#e5efff;color:#265eaa;font-size:19px;font-weight:700}
-.connector-card[data-connector="teaching"] .connector-icon{background:#e1f4ee;color:#126b58}
+.connector-card[data-connector="教学运营查询"] .connector-icon{background:#e1f4ee;color:#126b58}
 .connector-name,.connector-description{display:block}
 .connector-name{color:#1b2435;font-size:15px;font-weight:650}
 .connector-description{margin-top:3px;color:#586e89;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -100,7 +100,7 @@
 <script>
 const connectors = [
   {
-    label: '企微会话与学员查询', name: 'data-service', url: 'https://example.invalid/mcp/wechat',
+    label: '企微会话与学员查询', url: 'https://example.invalid/mcp/wechat',
     icon: '聊', description: '查询授权范围内的企微会话、消息和学生记录。',
     tools: [
       ['查询企微会话', '按有权查看的员工、日期或客户查找企微会话。'],
@@ -110,7 +110,7 @@ const connectors = [
     ],
   },
   {
-    label: '教学运营查询', name: 'teaching', url: 'https://example.invalid/mcp/teaching',
+    label: '教学运营查询', url: 'https://example.invalid/mcp/teaching',
     icon: '教', description: '查询教师档案、课量、课次、休假和作业模考指标。',
     tools: [
       ['查询教师档案', '查看「我的教师」名单和教师详情，包括教师号、工号、所属部门和在职状态。'],
@@ -130,7 +130,7 @@ const copyText = document.getElementById('copy-text');
 let toastTimer;
 
 function configJson(services) {
-  const entries = services.map(({ name, url }) => [name, {
+  const entries = services.map(({ label, url }) => [label, {
     url,
     headers: { Authorization: 'Bearer DEMO_TOKEN' },
     timeout: 60000,
@@ -214,7 +214,7 @@ function announce(message) {
 function renderConnectors() {
   const cards = connectors.map(connector => {
     const card = cardTemplate.content.firstElementChild.cloneNode(true);
-    card.dataset.connector = connector.name;
+    card.dataset.connector = connector.label;
     card.querySelector('.connector-icon').textContent = connector.icon;
     card.querySelector('.connector-name').textContent = connector.label;
     card.querySelector('.connector-description').textContent = connector.description;

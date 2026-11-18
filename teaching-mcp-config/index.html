@@ -5,16 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>VisionAI · MCP 配置 Demo</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#1b2435;font:14px/1.45 Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}.layout{display:grid;grid-template-columns:239px minmax(0,1fr);min-height:100vh}aside{background:#e9e9ec;border-right:1px solid #dce0e7;padding:10px 12px}.brand{display:flex;align-items:center;gap:12px;font-size:25px;font-weight:750;letter-spacing:-.5px}.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#121723 32%,#355676 78%,#94efec);color:#effcff;font-size:25px;box-shadow:0 5px 12px #26395430}.nav{margin:31px 0;color:#4e5c70}.nav div{padding:11px 12px;margin:3px 0}.nav span{display:inline-block;width:28px}.nav .child{margin-left:36px;padding:10px;color:#6b7a91}.nav .current{background:#f4f4f6;border:1px solid #fff;border-radius:9px;color:#202b3e;font-weight:600}.nav i{float:right;font-style:normal}main{min-width:0}.top{display:flex;align-items:center;justify-content:space-between;height:61px;padding:0 24px;color:#6b7a91}.top b{color:#182133;margin-left:10px}.account{display:flex;align-items:center;gap:8px}.avatar{display:grid;place-items:center;background:#2a5da7;color:white;width:30px;height:30px;border-radius:50%;font-size:12px}.card{margin:0 10px 20px 20px;padding:20px;border:1px solid #e4eaf2;border-radius:17px;background:#fff;box-shadow:0 7px 22px #26395407}h1{font-size:18px;margin:0 0 4px}p{margin:0;color:#657995}.tabs{display:flex;gap:24px;border-bottom:1px solid #e6ebf2;margin-top:13px}.tab{border:0;border-bottom:2px solid transparent;border-radius:0;background:white;color:#56677e;padding:11px 3px 9px;min-width:60px;font-size:14px}.tab[aria-selected="true"]{border-color:#2b5fa8;color:#275a9f;font-weight:650}.panel-head{display:flex;justify-content:flex-end;align-items:center;margin:12px 0}.actions{display:flex;gap:10px;flex-shrink:0}button{cursor:pointer;font:inherit;border:1px solid #ced7e4;border-radius:8px;background:#fff;color:#445674;padding:6px 13px;font-size:13px}button:hover{background:#f4f7fc}button:focus-visible{outline:2px solid #356ec3;outline-offset:2px}.primary{background:#2b5fa8;color:white;border-color:#2b5fa8}.primary:hover{background:#234e8a}.editor{overflow:auto;min-height:220px;background:#f7f9fa;border:1px solid #dbe4ef;border-radius:12px;padding:14px 17px;font:14px/20px ui-monospace,SFMono-Regular,Consolas,monospace}.line{display:flex;white-space:pre;min-width:max-content}.number{color:#64748b;text-align:right;width:23px;margin-right:10px;user-select:none}.value{color:#16834b}.numeric{color:#1761b8}.fold{font:inherit;border:0;padding:0 2px;background:transparent;color:#25334a}.hint{color:#70839e}.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#25354d;color:white;border-radius:8px;padding:9px 16px;box-shadow:0 4px 12px #101a2a28;max-width:90vw}.toast:empty{display:none}dialog{width:min(95vw,680px);border:1px solid #dbe4ef;border-radius:12px;padding:20px}dialog textarea{width:100%;height:180px;margin:12px 0;font:13px monospace}dialog::backdrop{background:#17213355}@media(max-width:720px){.layout{grid-template-columns:minmax(0,1fr)}aside{display:none}.top{padding:0 14px}.card{margin:0 8px 14px;padding:13px}.editor{padding:12px 8px}}
+*{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#1b2435;font:14px/1.45 Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}.layout{display:grid;grid-template-columns:239px minmax(0,1fr);min-height:100vh}aside{background:#e9e9ec;border-right:1px solid #dce0e7;padding:10px 12px}.brand{display:flex;align-items:center;gap:12px;font-size:25px;font-weight:750;letter-spacing:-.5px}.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#121723 32%,#355676 78%,#94efec);color:#effcff;font-size:25px;box-shadow:0 5px 12px #26395430}.nav{margin:31px 0;color:#4e5c70}.nav div{padding:11px 12px;margin:3px 0}.nav span{display:inline-block;width:28px}.nav .child{margin-left:36px;padding:10px;color:#6b7a91}.nav .current{background:#f4f4f6;border:1px solid #fff;border-radius:9px;color:#202b3e;font-weight:600}.nav i{float:right;font-style:normal}main{min-width:0}.top{display:flex;align-items:center;justify-content:space-between;height:61px;padding:0 24px;color:#6b7a91}.top b{color:#182133;margin-left:10px}.account{display:flex;align-items:center;gap:8px}.avatar{display:grid;place-items:center;background:#2a5da7;color:white;width:30px;height:30px;border-radius:50%;font-size:12px}.card{margin:0 10px 20px 20px;padding:20px;border:1px solid #e4eaf2;border-radius:17px;background:#fff;box-shadow:0 7px 22px #26395407}h1{font-size:18px;margin:0 0 4px}p{margin:0;color:#657995}.panel-head{display:flex;justify-content:flex-end;align-items:center;margin:12px 0}.actions{display:flex;gap:10px;flex-shrink:0}button{cursor:pointer;font:inherit;border:1px solid #ced7e4;border-radius:8px;background:#fff;color:#445674;padding:6px 13px;font-size:13px}button:hover{background:#f4f7fc}button:focus-visible{outline:2px solid #356ec3;outline-offset:2px}.primary{background:#2b5fa8;color:white;border-color:#2b5fa8}.primary:hover{background:#234e8a}.editor{overflow:auto;min-height:220px;background:#f7f9fa;border:1px solid #dbe4ef;border-radius:12px;padding:14px 17px;font:14px/20px ui-monospace,SFMono-Regular,Consolas,monospace}.line{display:flex;white-space:pre;min-width:max-content}.number{color:#64748b;text-align:right;width:23px;margin-right:10px;user-select:none}.value{color:#16834b}.numeric{color:#1761b8}.fold{font:inherit;border:0;padding:0 2px;background:transparent;color:#25334a}.hint{color:#70839e}.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#25354d;color:white;border-radius:8px;padding:9px 16px;box-shadow:0 4px 12px #101a2a28;max-width:90vw}.toast:empty{display:none}dialog{width:min(95vw,680px);border:1px solid #dbe4ef;border-radius:12px;padding:20px}dialog textarea{width:100%;height:180px;margin:12px 0;font:13px monospace}dialog::backdrop{background:#17213355}@media(max-width:720px){.layout{grid-template-columns:minmax(0,1fr)}aside{display:none}.top{padding:0 14px}.card{margin:0 8px 14px;padding:13px}.editor{padding:12px 8px}}
 .page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-#config-panel{display:grid;gap:14px;margin-top:16px}
-.connector{min-width:0;border:1px solid #dbe4ef;border-radius:12px;padding:16px}
-.connector .panel-head{justify-content:space-between;gap:12px;margin:0 0 12px}
-.connector h2{margin:0;font-size:16px}
+.connector-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.connector-card{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;min-height:82px;text-align:left;padding:14px;border:1px solid #dbe4ef;border-radius:12px}
+.connector-card:hover{border-color:#92acd0}
+.connector-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:11px;background:#e5efff;color:#265eaa;font-size:19px;font-weight:700}
+.connector-card[data-connector="teaching"] .connector-icon{background:#e1f4ee;color:#126b58}
+.connector-name,.connector-description{display:block}
+.connector-name{color:#1b2435;font-size:15px;font-weight:650}
+.connector-description{margin-top:3px;color:#586e89;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.connector-arrow{color:#657995;font-size:21px}
+#connector-dialog{width:min(95vw,850px);max-height:90dvh}
+.connector .panel-head{justify-content:space-between;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.connector h2{margin:0;font-size:17px}
 .config-details{margin-bottom:12px}
 .config-details summary{width:fit-content;cursor:pointer;color:#275a9f;font-size:13px}
 .config-details .editor{margin-top:8px}
-@media(max-width:480px){.connector{padding:10px}}
 
 .tool-table{width:100%;border:1px solid #dbe4ef;border-radius:10px;border-spacing:0;overflow:hidden}
 .tool-table th,.tool-table td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid #e6ebf2}
@@ -50,32 +57,35 @@
         <button type="button" class="primary" id="copy-all">复制全部配置</button>
       </div>
     </header>
-    <div class="tabs" role="tablist" aria-label="MCP 分类">
-      <button class="tab" id="wechat-tab" role="tab" aria-controls="config-panel" aria-selected="true" data-key="wechat">企微会话</button>
-      <button class="tab" id="teaching-tab" role="tab" aria-controls="config-panel" aria-selected="false" tabindex="-1" data-key="teaching">教学</button>
-    </div>
-    <div id="config-panel" role="tabpanel" aria-labelledby="wechat-tab">
-    </div>
-    <template id="connector-template">
-      <section class="connector">
-        <header class="panel-head">
-          <h2></h2>
-          <button type="button" class="primary copy">复制配置</button>
-        </header>
-        <details open class="config-details">
-          <summary>查看配置</summary>
-          <div class="editor" aria-label="配置预览"></div>
-        </details>
-        <table class="tool-table" aria-label="查询工具">
-          <thead><tr><th scope="col">查询工具</th><th scope="col">能查什么</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </section>
+    <div class="connector-list" id="connector-list"></div>
+    <template id="card-template">
+      <button type="button" class="connector-card" aria-haspopup="dialog">
+        <span class="connector-icon" aria-hidden="true"></span>
+        <span><span class="connector-name"></span><span class="connector-description"></span></span>
+        <span class="connector-arrow" aria-hidden="true">›</span>
+      </button>
     </template>
   </section>
 </main>
 </div>
 <div id="toast" class="toast" role="status"></div>
+<dialog id="connector-dialog" class="connector" aria-labelledby="connector-title">
+  <header class="panel-head">
+    <h2 id="connector-title"></h2>
+    <form method="dialog" class="actions">
+      <button type="button" class="primary" id="copy-connector">复制配置</button>
+      <button autofocus>关闭</button>
+    </form>
+  </header>
+  <details class="config-details" open>
+    <summary>查看配置</summary>
+    <div class="editor" aria-label="配置预览"></div>
+  </details>
+  <table class="tool-table" aria-label="查询工具">
+    <thead><tr><th scope="col">查询工具</th><th scope="col">能查什么</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</dialog>
 <dialog id="all-config-dialog" aria-labelledby="all-config-title">
   <form method="dialog">
     <strong id="all-config-title">全部配置</strong>
@@ -88,18 +98,20 @@
 </dialog>
 <dialog id="copy-dialog" aria-labelledby="copy-title"><form method="dialog"><strong id="copy-title">手动复制配置</strong><textarea id="copy-text" aria-label="配置 JSON" readonly></textarea><button>关闭</button></form></dialog>
 <script>
-const connectors = {
-  wechat: [{
+const connectors = [
+  {
     label: '企微会话', name: 'data-service', url: 'https://example.invalid/mcp/wechat',
+    icon: '聊', description: '查询授权范围内的企微会话、消息和学生记录。',
     tools: [
       ['查询企微会话', '按有权查看的员工、日期或客户查找企微会话。'],
       ['查看会话消息', '查看指定会话的消息。群聊从员工加入后开始，查询范围排除员工内部聊天。'],
       ['查询数据权限', '查看当前账号可查询哪些员工的数据。'],
       ['查询学生与就读记录', '查找授权范围内的学生，查看其就读记录。'],
     ],
-  }],
-  teaching: [{
+  },
+  {
     label: '教学', name: 'teaching', url: 'https://example.invalid/mcp/teaching',
+    icon: '教', description: '查询教师档案、课量、课次、休假和作业模考指标。',
     tools: [
       ['查询教师档案', '查看「我的教师」名单和教师详情，包括教师号、工号、所属部门和在职状态。'],
       ['查询月度课量', '按教师和月份查看已排课量和课量上限。'],
@@ -107,11 +119,11 @@ const connectors = {
       ['查询休假与拉黑', '按教师和日期查看休假明细，包括起止时间、类型和已有状态。拉黑对应的类型待确认。'],
       ['查询作业与模考指标', '按教师和统计周期查看布置作业、批改作业、布置模考、批改模考、提交模考报告五项 DT 看板数据，按 T+1 更新。'],
     ],
-  }],
-};
-const tabs = [...document.querySelectorAll('[role="tab"]')];
-const panel = document.getElementById('config-panel');
-const connectorTemplate = document.getElementById('connector-template');
+  },
+];
+const connectorList = document.getElementById('connector-list');
+const cardTemplate = document.getElementById('card-template');
+const connectorDialog = document.getElementById('connector-dialog');
 const toast = document.getElementById('toast');
 const copyDialog = document.getElementById('copy-dialog');
 const copyText = document.getElementById('copy-text');
@@ -193,53 +205,39 @@ function renderTools(toolList, tools) {
   toolList.replaceChildren(...rows);
 }
 
-function selectTab(tab) {
-  tabs.forEach(item => {
-    item.setAttribute('aria-selected', item === tab);
-    item.tabIndex = item === tab ? 0 : -1;
-  });
-  panel.setAttribute('aria-labelledby', tab.id);
-  panel.replaceChildren(...connectors[tab.dataset.key].map(renderConnector));
-}
-
 function announce(message) {
   clearTimeout(toastTimer);
   toast.textContent = message;
   toastTimer = setTimeout(() => { toast.textContent = ''; }, 2400);
 }
 
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => selectTab(tab));
-  tab.addEventListener('keydown', event => {
-    const next = { ArrowLeft: 1 - index, ArrowRight: 1 - index, Home: 0, End: 1 }[event.key];
-    if (next === undefined) return;
-    event.preventDefault();
-    selectTab(tabs[next]);
-    tabs[next].focus();
+function renderConnectors() {
+  const cards = connectors.map(connector => {
+    const card = cardTemplate.content.firstElementChild.cloneNode(true);
+    card.dataset.connector = connector.name;
+    card.querySelector('.connector-icon').textContent = connector.icon;
+    card.querySelector('.connector-name').textContent = connector.label;
+    card.querySelector('.connector-description').textContent = connector.description;
+    card.addEventListener('click', () => openConnector(connector));
+    return card;
   });
-});
+  connectorList.replaceChildren(...cards);
+}
 
-function renderConnector(connector) {
-  const card = connectorTemplate.content.firstElementChild.cloneNode(true);
-  const title = card.querySelector('h2');
-  title.id = `connector-${connector.name}`;
-  title.textContent = `${connector.label} MCP`;
-  card.setAttribute('aria-labelledby', title.id);
-
-  const editor = card.querySelector('.editor');
+function openConnector(connector) {
   const json = configJson([connector]);
-  renderConfig(editor, json);
-  renderTools(card.querySelector('tbody'), connector.tools);
-
-  card.querySelector('.copy').addEventListener('click', () => {
+  connectorDialog.querySelector('h2').textContent = connector.label;
+  connectorDialog.querySelector('details').open = true;
+  renderConfig(connectorDialog.querySelector('.editor'), json);
+  renderTools(connectorDialog.querySelector('tbody'), connector.tools);
+  document.getElementById('copy-connector').onclick = () => {
     copyConfig(json, `已复制${connector.label}配置`);
-  });
-  return card;
+  };
+  connectorDialog.showModal();
 }
 
 document.getElementById('refresh').addEventListener('click', () => {
-  const tab = document.querySelector('.tab[aria-selected="true"]');
-  selectTab(tab);
+  renderConnectors();
   announce('已刷新 MCP 配置');
 });
 
@@ -247,7 +245,7 @@ const allConfigDialog = document.getElementById('all-config-dialog');
 const allConfigText = document.getElementById('all-config-text');
 
 document.getElementById('copy-all').addEventListener('click', () => {
-  allConfigText.value = configJson(Object.values(connectors).flat());
+  allConfigText.value = configJson(connectors);
   allConfigDialog.showModal();
 });
 
@@ -262,7 +260,7 @@ document.getElementById('copy-all-confirm').addEventListener('click', async () =
   }
 });
 
-selectTab(tabs[0]);
+renderConnectors();
 </script>
 </body>
 </html>
